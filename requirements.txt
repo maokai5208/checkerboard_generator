@@ -1,0 +1,4 @@
+﻿numpy>=1.21.0
+opencv-python>=4.5.0
+Pillow>=8.0.0
+pylibdmtx>=0.1.9
