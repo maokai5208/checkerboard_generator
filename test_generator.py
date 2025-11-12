@@ -83,7 +83,11 @@ def test_generator():
         print(f"✓ DM码生成成功，尺寸: {dm_img.shape}")
         
         # 测试保存
-        test_output = "test_checkerboard.png"
+        test_output = "output/test_checkerboard.png"
+        # 确保output目录存在
+        output_dir = "output"
+        if not os.path.exists(output_dir):
+            os.makedirs(output_dir)
         if os.path.exists(test_output):
             os.remove(test_output)
         

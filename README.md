@@ -63,7 +63,9 @@ python checkerboard_generator.py
 - `dm_start_position` (int, 可选): 第一个DM码的起始位置（行和列索引，从0开始）
   - 如果为None，则使用`dm_spacing`作为起始位置
   - 例如：如果设置为4，则第一个DM码从第5行第5列开始（从1开始计数）
-- `output_path` (str, 可选): 输出文件路径（默认：`checkerboard_with_dm.png`）
+- `output_path` (str, 可选): 输出文件路径（默认：`output/checkerboard_with_dm.png`）
+  - 如果未指定，文件将自动保存到 `output/` 文件夹
+  - 如果指定了路径但不包含 `output/` 目录，文件会自动保存到 `output/` 文件夹中
 
 ### 高级用法
 
@@ -122,10 +124,12 @@ generator.save_checkerboard(
 
 ## 输出文件
 
+所有生成的文件会自动保存到 `output/` 文件夹中（如果文件夹不存在会自动创建）。
+
 - **图像文件**: 生成的棋盘格图像（PNG格式）
-  - 文件名：`checkerboard_with_dm.png`（默认）
+  - 默认文件名：`output/checkerboard_with_dm.png`
 - **配置文件**: 自动生成的JSON配置文件
-  - 文件名：`checkerboard_with_dm_config.json`（默认）
+  - 默认文件名：`output/checkerboard_with_dm_config.json`
   - 包含所有参数和坐标系信息
 
 ## 依赖库
@@ -142,7 +146,10 @@ CalcBoard/
 ├── checkerboard_generator.py  # 主程序文件
 ├── test_generator.py          # 测试脚本
 ├── README.md                  # 说明文档
-└── requirements.txt           # 依赖列表
+├── requirements.txt           # 依赖列表
+└── output/                    # 输出文件夹（自动创建）
+    ├── checkerboard_with_dm.png
+    └── checkerboard_with_dm_config.json
 ```
 
 ## 使用示例

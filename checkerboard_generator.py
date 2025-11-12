@@ -661,7 +661,7 @@ def generate_checkerboard_simple(square_size: float,
                                   cols: int,
                                   dm_spacing: int,
                                   dm_start_position: int = None,
-                                  output_path: str = "checkerboard_with_dm.png") -> str:
+                                  output_path: str = None) -> str:
     """
     简化的棋盘格生成接口，只需输入4个参数（可选第5个参数指定起始位置）
     
@@ -673,11 +673,27 @@ def generate_checkerboard_simple(square_size: float,
         dm_start_position: 第一个DM码的起始位置（行和列索引，从0开始）
                            如果为None，则使用dm_spacing作为起始位置
                            例如：如果设置为5，则第一个DM码从第5行第5列开始
-        output_path: 输出文件路径（可选，默认：checkerboard_with_dm.png）
+        output_path: 输出文件路径（可选，默认：output/checkerboard_with_dm.png）
     
     返回:
         保存的文件路径
     """
+    # 创建output文件夹（如果不存在）
+    output_dir = "output"
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir)
+    
+    # 如果未指定输出路径，使用默认路径
+    if output_path is None:
+        output_path = os.path.join(output_dir, "checkerboard_with_dm.png")
+    else:
+        # 如果指定了路径但不包含output目录，则添加到output目录
+        # 使用os.path处理跨平台路径
+        output_path_normalized = os.path.normpath(output_path)
+        output_dir_normalized = os.path.normpath(output_dir)
+        if not output_path_normalized.startswith(output_dir_normalized + os.sep) and output_path_normalized != output_dir_normalized:
+            filename = os.path.basename(output_path)
+            output_path = os.path.join(output_dir, filename)
     # 自动计算图像尺寸
     # 每个方格至少100像素，加上边距
     pixels_per_mm = 10  # 每毫米10像素（可根据需要调整）
@@ -737,8 +753,8 @@ def main():
         rows=25,            # 25行
         cols=25,            # 25列
         dm_spacing=5,       # DM码间距：每隔5个方格放置一个DM码
-        dm_start_position=4,  # 第一个DM码从第5行第5列开始（可选，如果不指定则使用dm_spacing）
-        output_path="checkerboard_with_dm.png"
+        dm_start_position=4  # 第一个DM码从第5行第5列开始（可选，如果不指定则使用dm_spacing）
+        # output_path 未指定，将自动保存到 output/checkerboard_with_dm.png
     )
 
 
